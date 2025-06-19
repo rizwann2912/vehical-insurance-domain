@@ -1,4 +1,5 @@
 notes.txt
+notebooks/mongoDB_demo.ipynb
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
