@@ -41,7 +41,7 @@ class DataTransformationConfig:
 @dataclass
 class ModelTrainerConfig:
     model_trainer_dir = os.path.join(training_pipeline_config.artifact_dir,MODEL_TRAINER_DIR_NAME)
-    trained_model_file_path =os.path.join(model_trainer_dir,MODEL_TRAINER_TRAINED_MODEL_DIR)
+    trained_model_file_path =os.path.join(model_trainer_dir,MODEL_TRAINER_TRAINED_MODEL_DIR,MODEL_TRAINER_TRAINED_MODEL_NAME)
     expected_accuracy =MODEL_TRAINER_EXPECTED_SCORE
     model_config_file_path = MODEL_TRAINER_MODEL_CONFIG_FILE_PATH
     _n_estimators = MODEL_TRAINER_N_ESTIMATORS
@@ -50,3 +50,14 @@ class ModelTrainerConfig:
     _max_depth = MIN_SAMPLES_SPLIT_MAX_DEPTH
     _criterion = MIN_SAMPLES_SPLIT_CRITERION
     _random_state = MIN_SAMPLES_SPLIT_RANDOM_STATE
+
+@dataclass
+class ModelEvaluationConfig:
+    changed_threshold_score = MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE
+    bucket_name = MODEL_BUCKET_NAME
+    s3_model_key_path = MODEL_FILE_NAME
+
+@dataclass
+class ModelPusherCOnfig:
+    bucket_name = MODEL_BUCKET_NAME
+    s3_model_key_path = MODEL_FILE_NAME
