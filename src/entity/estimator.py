@@ -29,10 +29,10 @@ class MyModel:
         try:
             logging.info('Starting prediction process')
 
-            transformed_feature = self.preprocessing_object(dataframe)
+            transformed_feature = self.preprocessing_object.transform(dataframe)
 
             logging.info('using the trained model to get the predictions')
-            predictions = self.trained_model_obejct(transformed_feature)
+            predictions = self.trained_model_obejct.predict(transformed_feature)
 
             return predictions
         except Exception as e:
