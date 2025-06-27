@@ -79,6 +79,8 @@ class ModelEvaluation:
         logging.info("Dropping 'id' column")
         if "_id" in df.columns:
             df = df.drop("_id", axis=1)
+        if "id" in df.columns:
+            df = df.drop("id", axis=1)
         return df
 
     def evaluate_model(self) -> EvaluateModelResponse:

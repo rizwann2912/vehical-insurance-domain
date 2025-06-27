@@ -34,11 +34,13 @@ class ModelTrainer:
                 criterion=self.model_trainer_config._criterion,
                 random_state=self.model_trainer_config._random_state
             )
-
+            logging.info(f"Df columns used for training: {x_train.shape[1]}")
             logging.info("Model training started")
+            
             model.fit(x_train,y_train)
             logging.info('Model training completed')
-
+            logging.info("Model prediction started")
+            logging.info(f"Test data shape: {x_test.shape}")
             y_pred = model.predict(x_test)
             accuracy = accuracy_score(y_test,y_pred)
             f1 = f1_score(y_test,y_pred)

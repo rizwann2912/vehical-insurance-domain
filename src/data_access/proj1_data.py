@@ -29,7 +29,7 @@ class Proj1Data:
             print(f'Data fecthed of length: {len(df)}')
 
             if "id" in df.columns.to_list():
-                df.drop('id',axis =1)
+                df.drop('id', axis=1, inplace=True)
             df.replace({"na":np.nan},inplace=True)
             return df
 

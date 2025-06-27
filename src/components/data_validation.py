@@ -31,13 +31,18 @@ class DataValidation:
         """
         Method Name :   validate_number_of_columns
         Description :   This method validates the number of columns
-        
         Output      :   Returns bool value based on validation results
         On Failure  :   Write an exception log and then raise an exception
         """
         try:
-            status = len(dataframe.columns) == len(self._schema_config["columns"])
-            logging.info(f"Is required column present: [{status}]")
+            # Extract column names from schema
+            schema_col_names = [list(col.keys())[0] for col in self._schema_config["columns"]]
+            # Remove drop_columns from expected columns
+            expected_col_names = [col for col in schema_col_names if col not in self._schema_config["drop_columns"]]
+            status = list(dataframe.columns) == expected_col_names
+            logging.info(f"Expected columns: {expected_col_names}")
+            logging.info(f"Actual columns: {list(dataframe.columns)}")
+            logging.info(f"Is required column present: [{status}] (expected: {len(expected_col_names)}, actual: {len(dataframe.columns)})")
             return status
         except Exception as e:
             raise MyException(e, sys)
@@ -80,6 +85,27 @@ class DataValidation:
         except Exception as e:
             raise MyException(e, sys)
         
+    def validate_number_of_columns(self, dataframe: DataFrame) -> bool:
+        """
+        Method Name :   validate_number_of_columns
+        Description :   This method validates the number of columns
+        Output      :   Returns bool value based on validation results
+        On Failure  :   Write an exception log and then raise an exception
+        """
+        try:
+            # Extract column names from schema
+            schema_col_names = [list(col.keys())[0] for col in self._schema_config["columns"]]
+            # Remove drop_columns from expected columns
+            expected_col_names = [col for col in schema_col_names if col not in self._schema_config["drop_columns"]]
+            # Only check that all expected columns are present (order doesn't matter)
+            status = set(dataframe.columns) == set(expected_col_names)
+            logging.info(f"Expected columns: {expected_col_names}")
+            logging.info(f"Actual columns: {list(dataframe.columns)}")
+            logging.info(f"Is required column present: [{status}] (expected: {len(expected_col_names)}, actual: {len(dataframe.columns)})")
+            return status
+        except Exception as e:
+            raise MyException(e, sys)
+
 
     def initiate_data_validation(self) -> DataValidationArtifact:
         """

@@ -59,11 +59,12 @@ class DataTransformation:
             logging.info("Mapping 'Gender' column to binary values")
             df['Gender'] = df['Gender'].map({'Male':1,'Female':0}).astype(int)
 
-            logging.info("Dropping 'id' column")
+            logging.info("Dropping column that needed to be dropped")
             drop_col = self._schema_config['drop_columns']
-            if drop_col in df.columns:
-                df = df.drop(drop_col, axis=1)
-            
+            cols_to_drop = [col for col in drop_col if col in df.columns]
+            if cols_to_drop:
+                df = df.drop(cols_to_drop, axis=1)
+                        
             logging.info('Creating dummy variable for categorical features')
             print(df.nunique().sort_values(ascending=False).head(10))
 
@@ -139,4 +140,5 @@ class DataTransformation:
             )
         except Exception as e:
             raise MyException(e,sys)
-        
+    
+    
