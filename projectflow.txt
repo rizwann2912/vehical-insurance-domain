@@ -123,6 +123,7 @@ Workflow:
       sudo usermod -aG docker ubuntu
       newgrp docker
 
+
 29. Next step is to connect Github with EC2(Self hosted runner):
       * select your project on Github >> go to settings >> Actions >> Runner >> New self hosted runner
         >> Select OS (Linux) >> Now step by step run all "Download" related commands on EC2 server 
